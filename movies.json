@@ -29,6 +29,18 @@
       "title": "The Aristocats",
       "release_year": 1970,
       "runtime": 78
+    },
+    {
+      "title": "The Rescuers",
+      "release_year": 1977,
+      "runtime": 77,
+      "id": 6
+    },
+    {
+      "title": "The Lion King",
+      "release_year": 1994,
+      "runtime": 89,
+      "id": 7
     }
   ]
 }
