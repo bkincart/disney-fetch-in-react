@@ -26,10 +26,12 @@ class MoviesContainer extends Component {
   }
 
   addNewMovie(formPayload) {
+    // post fetch
     fetch('/api/v1/movies', {
       method: 'POST',
       body: JSON.stringify(formPayload)
     }).then(response => response.json())
+    //  add the movie to our page
     .then(body => {
       // let newMovies = this.state.movies.concat(body)
       // this.setState({ movies: newMovies })
@@ -38,7 +40,7 @@ class MoviesContainer extends Component {
   }
 
   render() {
-    let addNewMovie = (formPayload) => this.addNewMovie(formPayload)
+    let handleAddNewMovie = (formPayload) => this.addNewMovie(formPayload)
 
     return(
       <div className="container">
@@ -49,7 +51,7 @@ class MoviesContainer extends Component {
         />
         <hr />
         <FormContainer
-          addNewMovie={addNewMovie}
+          addNewMovie={handleAddNewMovie}
         />
       </div>
     )

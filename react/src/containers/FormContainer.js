@@ -11,9 +11,28 @@ class FormContainer extends Component {
       movieRuntime: ''
     }
 
+    // this.handleMovieTitleChange = this.handleMovieTitleChange.bind(this)
+    // this.handleMovieReleaseYearChange = this.handleMovieReleaseYearChange.bind(this)
+    // this.handleMovieRuntimeChange = this.handleMovieRuntimeChange.bind(this)
     this.handleChange = this.handleChange.bind(this);
+    this.handleClearForm = this.handleClearForm.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  // handleMovieTitleChange(event) {
+  //   let value = event.target.value
+  //   this.setState({ movieTitle: value })
+  // }
+  //
+  // handleMovieReleaseYearChange(event) {
+  //   let value = event.target.value
+  //   this.setState({ movieReleaseYear: value })
+  // }
+  //
+  // handleMovieRuntimeChange(event) {
+  //   let value = event.target.value
+  //   this.setState({ movieRuntime: value })
+  // }
 
   handleChange(event) {
     let value = event.target.value
@@ -21,8 +40,7 @@ class FormContainer extends Component {
     this.setState({ [name]: value })
   }
 
-  handleClearForm(event) {
-    event.preventDefault();
+  handleClearForm() {
     this.setState({
       movieTitle: '',
       movieReleaseYear: '',
@@ -32,40 +50,39 @@ class FormContainer extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    // below has both options for changing strings to integers
     let formPayload = {
       title: this.state.movieTitle,
-      release_year: parseInt(this.state.movieReleaseYear, 10),
+      release_year: +this.state.movieReleaseYear,
       runtime: parseInt(this.state.movieRuntime, 10)
     }
     this.props.addNewMovie(formPayload);
+    this.handleClearForm();
   }
 
   render() {
     return(
-      <form className='callout' onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <TextInputField
           label='Movie Title:'
           name='movieTitle'
-          content={this.state.movieTitle}
+          value={this.state.movieTitle}
           handleChange={this.handleChange}
         />
         <TextInputField
           label='Movie Release Year:'
           name='movieReleaseYear'
-          content={this.state.movieReleaseYear}
+          value={this.state.movieReleaseYear}
           handleChange={this.handleChange}
         />
         <TextInputField
           label='Movie Runtime:'
           name='movieRuntime'
-          content={this.state.movieRuntime}
+          value={this.state.movieRuntime}
           handleChange={this.handleChange}
         />
 
-        <div className="button-group">
-          <button className="button" onClick={this.handleClearForm}>Clear</button>
-          <input className="button" type="submit" value="Submit" />
-        </div>
+        <input className="button" type="submit" value="Submit" />
       </form>
     )
   }
