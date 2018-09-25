@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import MoviesIndex from '../components/MoviesIndex'
-import FormContainer from './FormContainer'
+import MoviesIndex from '../components/MoviesIndex';
+import FormContainer from './FormContainer';
 
 class MoviesContainer extends Component {
   constructor(props) {
@@ -13,35 +13,34 @@ class MoviesContainer extends Component {
     this.addNewMovie = this.addNewMovie.bind(this);
   }
 
-  // componentWillMount() {
-  //   debugger;
-  // }
-
   componentDidMount() {
     fetch('http://localhost:4567/api/v1/movies')
     .then(response => response.json())
     .then(body => {
       let allMovies = body.movies
-      let selectedMovies = allMovies.filter(movie => {
-        return movie.release_year < 1960
-      })
-      this.setState({ movies: body.movies })
+      // let selectedMovies = allMovies.filter(movie => {
+      //   return movie.release_year < 1960
+      // })
+      this.setState({ movies: allMovies })
     })
   }
 
   addNewMovie(formPayload) {
+    // post fetch
     fetch('/api/v1/movies', {
       method: 'POST',
       body: JSON.stringify(formPayload)
-    })
-    .then(response => response.json())
-    .then(responseData => {
-      this.setState({ movies: [...this.state.movies, responseData] })
+    }).then(response => response.json())
+    //  add the movie to our page
+    .then(body => {
+      // let newMovies = this.state.movies.concat(body)
+      // this.setState({ movies: newMovies })
+      this.setState({ movies: [...this.state.movies, body] })
     })
   }
 
   render() {
-    let addNewMovie = (formPayload) => this.addNewMovie(formPayload)
+    let handleAddNewMovie = (formPayload) => this.addNewMovie(formPayload)
 
     return(
       <div className="container">
@@ -52,7 +51,7 @@ class MoviesContainer extends Component {
         />
         <hr />
         <FormContainer
-          addNewMovie={addNewMovie}
+          addNewMovie={handleAddNewMovie}
         />
       </div>
     )

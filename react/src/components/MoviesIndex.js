@@ -7,9 +7,7 @@ const MoviesIndex = props => {
     return(
       <MovieTile
         key={movie.id}
-        title={movie.title}
-        releaseYear={movie.release_year}
-        runtime={movie.runtime}
+        movie={movie}
       />
     )
   })
